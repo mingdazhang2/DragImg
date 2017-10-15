@@ -1,0 +1,68 @@
+<!-- 
+backgroundimage= 'The whole name of quiz picture file(Don't need to think about the path)' 
+inputtype='drag' (or inputtype='input') 
+<passing-score>The score that check if user can past</passing-score>
+
+<pair targetx='The x coordinate of target point' targety='The y coordinate of target point'> 
+        <question labelx='The x coordinate of label point' labely='The x coordinate of label point'>mouth</question>
+        <answer>The content of answer</answer>
+</pair>
+-->
+<match title='' numberofmemoryquestions='11' numberofflipquestions='11' backgroundimage="question1.png" backgroundname='' inputtype='img' imgX='500' imgY='400'>
+    <passing-score>80</passing-score>
+    <!--Paste start -->
+    <pair targetx='' targety='' imgName='a1.png' width='43' height='20'>
+        <question labelx='179' labely='17' width='43' height='20' >a1</question>
+        <answer>a1</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a2.png' width='79' height='46'>
+        <question labelx='235' labely='22' width='79' height='46' >a2</question>
+        <answer>a2</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a3.png' width='90' height='23'>
+        <question labelx='13' labely='118' width='90' height='23' >a3</question>
+        <answer>a3</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a4.png' width='56' height='21'>
+        <question labelx='298' labely='121' width='56' height='21' >a4</question>
+        <answer>a4</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a5.png' width='80' height='71' >
+        <question labelx='364' labely='121' width='80' height='71' >a5</question>
+        <answer>a5</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a6.png' width='77' height='28'>
+        <question labelx='410' labely='209' width='77' height='28' >a6</question>
+        <answer>a6</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a7.png' width='87' height='23'>
+        <question labelx='271' labely='249' width='87' height='23' >a7</question>
+        <answer>a7</answer>
+    </pair>
+
+    <pair targetx='' targety='' imgName='a8.png' width='82' height='23'>
+        <question labelx='27' labely='359' width='82' height='23' >a8</question>
+        <answer>a8</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a9.png' width='83' height='71'>
+        <question labelx='118' labely='359' width='83' height='71' >a9</question>
+        <answer>a9</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a10.png' width='105' height='25'>
+        <question labelx='259' labely='369' width='105' height='25' >a10</question>
+        <answer>a10</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a11.png' width='71' height='71'>
+        <question labelx='370' labely='369' width='71' height='71' >a11</question>
+        <answer>a11</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a12.png' width='116' height='25'>
+        <question labelx='93' labely='510' width='116' height='25' >a12</question>
+        <answer>a12</answer>
+    </pair>
+    <pair targetx='' targety='' imgName='a13.png' width='125' height='70'>
+        <question labelx='216' labely='507' width='125' height='70' >a13</question>
+        <answer>a13</answer>
+    </pair>
+    <!--Paste end -->
+</match>
