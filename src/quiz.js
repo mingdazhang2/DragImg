@@ -6,13 +6,13 @@ class Quiz {
      * @param  {Object} xml The XML file Object
      */
   constructor (xml) {
-    this.xml = xml // The config.xml file
-    this.quiz = [] // [{question: "label", answers: [Answer1, Answer2...],}...]
-    this.passingScore = 0 // The passingScore in the xml file
-    this.score = 0 // The score that shows in the top of the screen
-    this.incorrectWeight = 0 // For calculating the score
-    this.labels = [] // [{labelX:"",labelY:""}]
-    this.inputType = '' // The inputType in the xml file, it can be "drag" or other type like input
+    this.xml = xml 
+    this.quiz = []
+    this.passingScore = 0 
+    this.score = 0 
+    this.incorrectWeight = 0
+    this.labels = []
+    this.inputType = ''
     this.checkTime = 0
     this.setUp()
   }
@@ -20,14 +20,12 @@ class Quiz {
     * Build up the quiz
     */
   setUp () {
-        // Create Quiz elements
+    // Create Quiz elements
     this.createQuiz()
-        // Set the passing score
+    // Set the passing score
     this.setPassingScore()
-        // Set the answerscore base on the number of the answer cards
+    // Set the answerscore base on the number of the answer cards
     this.setAnswerScore()
-        // Set the weight of answer for calculating the final score
-    this.setIncorrectWeight()
   }
     /**
      * Get the quiz type
@@ -41,7 +39,7 @@ class Quiz {
      *
      */
   createQuiz () {
-            // Get question list
+          // Get question list
     let questions = this.xml.getElementsByTagName('question')
           // Loop the question list to get "labely", "labelX", "tagetX", "tagetY" to set the location of labels and tagetPoints
     Array.from(questions).forEach(question => {
@@ -104,13 +102,7 @@ class Quiz {
       })
     })
   }
-    /**
-     * Get the length of the quiz
-     * @return {Number} Returns the numbers of questions
-     */
-  countQuestions () {
-    return this.quiz.length
-  }
+
     /**
      * Count the number of answers
      * @return {Number} Returns the number of answers
@@ -127,15 +119,6 @@ class Quiz {
     return answerScore
   }
     /**
-     * Calculating the incorrectWeigth of answer
-     * @return {Number} Returns the incorrect weight for each answer
-     */
-  calcIncorrectWeight () {
-    let answerScore = this.calcAnswerScore()
-    let incorrectWeight = answerScore * (1 / (this.countQuestions() - 1))
-    return incorrectWeight
-  }
-    /**
      * Set the score for each answer
      */
   setAnswerScore () {
@@ -144,23 +127,7 @@ class Quiz {
       answer.setAnswerScore(answerScore)
     })
   }
-    /**
-     * Reduce the Score when users get wrong answers
-     */
-  reduceAnswerScore () {
-        // this.score -= answer.reduceAnswerScore(this.incorrectWeight)
-    this.score = this.score - this.calcIncorrectWeight() * this.calcAnswerScore()
-    this.score = (this.score <= 0) ? 0 : this.score
-    let eventInput = new Event('scoreUpdateEvent')
-    window.dispatchEvent(eventInput)
-  }
-    /**
-     * Set the incorrectWeight by calling the calcIncorrectWeight function
-     *
-     */
-  setIncorrectWeight () {
-    this.incorrectWeight = this.calcIncorrectWeight()
-  }
+ 
     /**
      * Adding up the updating score event
      * @param {Number} answer The answer objec
@@ -178,33 +145,7 @@ class Quiz {
   getRoundedQuizScore () {
     return Math.round(this.score)
   }
-    /**
-     * Get the reduced score by accounting check times
-     * @return {Number} Returns the times of clicking check button
-     */
-  checkTimeScore () {
-        // let checkTime = Controller.myQuiz.checkTime
 
-    return this.checkTime * this.incorrectWeight * this.calcAnswerScore()
-  }
-    /**
-     * Calculating score in the "input Type"
-     */
-  calculateResultInputScore () {
-    let questions = this.quiz.map(questionAnswerSet => questionAnswerSet)
-    for (let i = 0; i < questions.length; i++) {
-      let question = questions[i].question.trim().toLowerCase()
-      let answerObj = document.getElementById(question).childNodes[0]
-      let answer = answerObj.innerText.trim().toLowerCase()
-      if (question != answer) {
-
-      } else {
-        this.score += this.calcAnswerScore()
-      }
-    }
-    this.score -= this.checkTimeScore()
-    this.score = (this.score <= 0) ? 0 : this.score
-  }
     /**
      * Find the answer
      * @param {String} innerHTML The text content of answer

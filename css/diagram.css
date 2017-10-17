@@ -16,8 +16,9 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, img, f
 
 #main {
     /* Make sure the browser knows how to display the HTML5 main element. */
-    display: block;
+    display: flex;
     background-color:#f2f8da;
+    padding: 1rem;
 }
 
 
@@ -55,9 +56,10 @@ sup {
 }
 	
 #boxes {
+    flex-basis: 30rem;
     width:60%;
     //height:80%;
-    margin:0 auto 2rem auto;
+    margin: auto;
     justify-content: space-between;   
 }
 
@@ -125,7 +127,7 @@ img {
 
 #answers {
     display: flex;
-    
+    flex-basis: 10rem;
     flex-wrap: wrap;
     margin: 0;
     padding: 0.25rem;
@@ -236,7 +238,6 @@ img {
 
     .answer-card p{
      font-size: 0.5rem;
-     //display: none
     }
 
 		

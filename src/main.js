@@ -15,15 +15,20 @@ window.onload = function () {
             setTimeout(function() {
                 parent.resizeIframe()
             }, 1000)
-
-      let flag = window.sessionStorage.getItem('flag')
+      // let reload = true
+      // if(reload){
+      //   window.location.reload()
+      //   reload = false
+      // }
+            
+      let flag = window.sessionStorage.getItem('dragImg')
       // if the session exist, doesn't need to reload the page
       if (!flag) {
         setTimeout(function () {
           window.location.reload()
-        }, 50)
+        }, 1000)
       }
-      window.sessionStorage.setItem('flag', 'true')
+      window.sessionStorage.setItem('dragImg', 'true')
     }
   }
 

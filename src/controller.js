@@ -38,140 +38,38 @@ class Controller {
 
     var timer = setInterval(function () {
       if (questionImg.complete) {
-                   // callback(questionImg)
+        // Callback(questionImg)
         clearInterval(timer)
       }
     }, 50)
     let questionImg = document.getElementById('questionImg')
-    if(quizType!=='img'){
-        questionImg.onload = function () {
-          
-      let questions = Controller.myQuiz.quiz.map(questionAnswerSet => questionAnswerSet)
-      let indexArry = []
-      for (let i = 0; i < questions.length; i++) {
-        indexArry.push(i)
-      }
 
+    let questions = Controller.myQuiz.quiz.map(questionAnswerSet => questionAnswerSet)
       for (let i = 0; i < questions.length; i++) {
-            // Create question label
+        // Create question label
         let box = Controller.myView.createQuestionBoxElement(questions[i], quizType)
-            // Create red point spot
-        let point = Controller.myView.createPointElement(questions[i], box)
-            // Best Option: draw the index to match each taget point and label
-             //   Controller.myView.createIndex(point, box, i)
-
-        let index = Controller.randomNum(0, indexArry.length - 1)
-
-        Controller.myView.createIndex(point, box, indexArry[index])
-        indexArry.splice(index, 1)
       }
-        if (quizType == 'drag') {
-      Controller.myQuiz.forAllAnswers(answer => {
+        Controller.myQuiz.forAllAnswers(answer => {
         Controller.myView.createAnswerCardElement(answer)
         let checkBtn = document.getElementById('btn-check')
         checkBtn.style.display = 'none'
       })
-
       Controller.myView.shuffleContents('boxes')
       Controller.myView.shuffleContents('answers')
-    } else if (quizType == 'input'){
-            // hide the score div
-            // let scoreDiv = document.getElementById('score-display')
-            // scoreDiv.style.display = 'none'
-    } 
-
-    }
-    }else{
-     
-
-      let questions = Controller.myQuiz.quiz.map(questionAnswerSet => questionAnswerSet)
-      // let indexArry = []
-      // for (let i = 0; i < questions.length; i++) {
-      //   indexArry.push(i)
-      // }
-
-      for (let i = 0; i < questions.length; i++) {
-            // Create question label
-        let box = Controller.myView.createQuestionBoxElement(questions[i], quizType)
-            // Create red point spot
-        //let point = Controller.myView.createPointElement(questions[i], box)
-            // Best Option: draw the index to match each taget point and label
-             //   Controller.myView.createIndex(point, box, i)
-
-        //let index = Controller.randomNum(0, indexArry.length - 1)
-
-       // Controller.myView.createIndex(point, box, indexArry[index])
-        //indexArry.splice(index, 1)
-      }
-
-         Controller.myQuiz.forAllAnswers(answer => {
-        Controller.myView.createAnswerCardElement(answer)
-        let checkBtn = document.getElementById('btn-check')
-        checkBtn.style.display = 'none'
-      })
-
-
-      Controller.myView.shuffleContents('boxes')
-      Controller.myView.shuffleContents('answers')
-    }
-
-
     }
 
     /**
      * Set up events listeners
      */
   static setUpEventListeners () {
-    window.addEventListener('checkEvent', Controller.checkEventHandler, false) // when "check" button clicked
+   // window.addEventListener('checkEvent', Controller.checkEventHandler, false) // when "check" button clicked
     window.addEventListener('submitEvent', Controller.submitEventHandler, false) // when "submit" button clicked
     window.addEventListener('tryAgainEvent', Controller.tryAgainEventHandler, false) // when "Try Again" button clicked
     window.addEventListener('scoreUpdateEvent', Controller.scoreUpdateEventHandler, false) // when quiz score is updated
         //   window.addEventListener('resizeIframeEvent', Controller.resizeIframeEventHandler, false) // when an answer card is moved to a correct box
     window.addEventListener('dropEvent', Controller.dropEventHandler, false) // when an answer card is dropped to a box
   }
-    /**
-     * Build up check button event
-     */
-  static checkEventHandler (event) {
-        // Get all the questionAnswer set
-    let questions = Controller.myQuiz.quiz.map(questionAnswerSet => questionAnswerSet)
-
-    for (let i = 0; i < questions.length; i++) {
-            // Get question text and convert to lowerCase
-      let question = questions[i].question.trim().toLowerCase()
-      let questionObj = document.getElementById(question)
-            // Get p tag object
-      let answerObj = questionObj.childNodes[0]
-
-      if (typeof answerObj == null || answerObj.innerText.trim().length == 0) {
-      } else {
-        let answer = answerObj.innerText.trim().toLowerCase()
-        let foundAnswer = Controller.myQuiz.findAnswer(answer)
-                // If the answer is wrong
-        if (question != answer) {
-          let target = Controller.myQuiz.quiz.find(questionAnswerSet => questionAnswerSet.question == question)
-          target.answers[0].incorrectAnswerTime++
-          if (target.answers[0].incorrectAnswerTime >= 4) {
-            answerObj.innerText = question
-            answerObj.contentEditable = 'false'
-            answerObj.style.backgroundColor = 'yellow'
-          } else {
-            answerObj.innerText = ''
-            answerObj.style.backgroundColor = 'pink'
-          }
-        } else {
-          if (answerObj.contentEditable != 'false') {
-            answerObj.contentEditable = 'false'
-            answerObj.style.backgroundColor = '#daedf8'
-            Controller.myQuiz.addQuizScore(foundAnswer)
-          }
-        }
-      }
-    }
-    let score = Controller.myQuiz.getRoundedQuizScore()
-    Controller.myView.updateCurrentScore(score)
-    Controller.myQuiz.checkTime++
-  }
+ 
 
     /**
      * Build up submit button event
@@ -180,12 +78,9 @@ class Controller {
     let quiztype = Controller.myQuiz.getQuizType()
 
     let passingScore = Controller.myQuiz.passingScore
-    if (quiztype == 'drag') {
-      Controller.myView.removeDraggableAll()
-    } else {
-            // Controller.myQuiz.checkTimeScore()
-            // Controller.myQuiz.calculateResultInputScore()
-    }
+   
+    Controller.myView.removeDraggableAll()
+
     let score = Controller.myQuiz.getRoundedQuizScore()
 
     

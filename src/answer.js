@@ -29,7 +29,5 @@ class Answer {
   reduceAnswerScore (number) {
     this.answerScore -= number
     return this.answerScore = (this.answerScore < 0) ? 0 : this.answerScore
-        //  let eventInput = new Event('scoreUpdateEvent')
-      //  window.dispatchEvent(eventInput)
   }
 }

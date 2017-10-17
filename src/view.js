@@ -133,9 +133,7 @@ class View {
     box.setAttribute('id', obj.question)
     if (View.quiz.labels.length !== 0) {
       let index = 0
-      if(quizType!=='img'){
-          index = View.randomNum(0, View.quiz.labels.length - 1)
-      }
+      
       let labelX = View.quiz.labels[index].labelX
       let labelY = View.quiz.labels[index].labelY
       let questionImg = document.getElementById('questionImg')
@@ -154,24 +152,13 @@ class View {
       box.style.top = top + '%'
       box.style.left = left + '%'
       box.style.backgroundColor = 'rgb(' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ')'
-      if (quizType == 'drag') {
-        box.contentEditable = false
-        box.style.backgroundColor = 'rgb(' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ')'
-        box.getElementsByTagName('p')[0].style.display = 'none'
-      } else if(quizType == 'img'){
-        box.contentEditable = false
+      
+      box.contentEditable = false
        // box.style.backgroundColor = 'rgb(' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ')'      
-        box.style.backgroundColor ='grey'
-        box.getElementsByTagName('p')[0].style.display = 'none'
+      box.style.backgroundColor ='grey'
+      box.getElementsByTagName('p')[0].style.display = 'none'
         //box.style.opacity = 0
-      }else {
-        let p = box.getElementsByTagName('p')[0]
-        p.setAttribute('class', 'inputBox')
-        p.innerHTML = ''
-        p.contentEditable = 'true'
-        let text = box.textContent
-        box.style.backgroundColor = 'rgb(' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ',' + parseInt(Math.random() * 255) + ')'
-      }
+      
 
       $(box).droppable({
         accept: '.answer-card',
@@ -192,49 +179,8 @@ class View {
     }
     return box
   }
-    /**
-     *  Set up the style and position of the target point
-     *  @param {Number} x The x coordinate of target point
-     *  @param {Number} y The y coordinate of target point
-     *  @param {String} color The color of question box
-     *
-     */
-  static point (x, y, index, color) {
-    let oDiv = document.createElement('div')
-    oDiv.style.position = 'absolute'
-    oDiv.style.height = '0.8rem'
-    oDiv.style.width = '0.8rem'
-    oDiv.style.backgroundColor = color
-    let questionImg = document.getElementById('questionImg')
-    let boxes = document.getElementById('boxes')
-    let imgWidth = questionImg.clientWidth
-    let imgHeight = questionImg.clientHeight
-    let top = parseInt(y - 6) / parseInt(imgHeight) * 100
-    let left = parseInt(x - 2) / parseInt(imgWidth) * 100
-    oDiv.style.left = left + '%'
-    oDiv.style.top = top + '%'
-    let p = document.createElement('p')
-    p.style.fontSize = '0.6rem'
-    p.innerHTML = '' + parseInt(index + 1) + ''
-    oDiv.appendChild(p)
-    oDiv.setAttribute('class', 'index')
-    boxes.appendChild(oDiv)
-  }
+   
 
-    /**
-     * Create the index to match which
-     * target point match to which random label box
-     */
-  static createIndex (point, box, index) {
-    let pointX = point.offsetLeft
-    let pointY = point.offsetTop
-    let boxX = box.offsetLeft
-    let boxY = box.offsetTop
-    let color = box.style.backgroundColor
-
-    View.point(pointX, pointY, index, color)
-    View.point(boxX, boxY, index, color)
-  }
 
     /**
      * Create AnswerCard function
@@ -254,7 +200,7 @@ class View {
     answerCard.style.backgroundSize="cover"
     answerCard.classList.add('answer-card')
     answerContainer.appendChild(answerCard)
-
+    answerCard.getElementsByTagName('p')[0].style.display = 'none'
     $(answerCard).draggable({
       containment: 'body',
       revert: true
@@ -361,25 +307,5 @@ class View {
     let resultElement = document.getElementById('result')
     resultElement.style.display = 'block'
   }
-    /**
-     * Calculate the socre for input type quiz
-     * @param {Array} questions The array of question objects
-     * @return {Number} Returns the score of Input type quiz
-     */
-  static calculateResultInput (questions) {
-    let score = 0
-    
-    for (let i = 0; i < questions.length; i++) {
-      let boxId = questions[i].answers[0].answerText
-      let boxScore = questions[i].answers[0].answerScore
-      let box = document.getElementById(boxId)
-      let answer = box.getElementsByTagName('p')[0].innerHTML.trim()
-      if (boxId.toLowerCase() === answer.toLowerCase()) {
-        score += parseInt(boxScore)
-      } else {
 
-      }
-    }
-    return Math.round(score)
-  }
 }
