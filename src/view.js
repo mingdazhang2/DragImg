@@ -132,17 +132,16 @@ class View {
     box.classList.add('question-box')
     box.setAttribute('id', obj.question)
     if (View.quiz.labels.length !== 0) {
-      let index = 0
-      
+      let index = 0    
       let labelX = View.quiz.labels[index].labelX
       let labelY = View.quiz.labels[index].labelY
+      let labelWidth = parseInt(View.quiz.labels[index].width)/ 16
+      let labelHeight = parseInt(View.quiz.labels[index].height)/ 16
       let questionImg = document.getElementById('questionImg')
       let naturalWidth = questionImg.naturalWidth
       let naturalHeight = questionImg.naturalHeight
       let top = parseInt(labelY) / parseInt(naturalHeight) * 100
-      let left = parseInt(labelX) / parseInt(naturalWidth) * 100
-      let labelWidth = parseInt(View.quiz.labels[index].width)/ 16
-      let labelHeight = parseInt(View.quiz.labels[index].height)/ 16
+      let left = parseInt(labelX) / parseInt(naturalWidth) * 100   
       
       box.setAttribute('dataLeft', left * boxContainer.clientWidth)
       box.setAttribute('dataTop', top * boxContainer.clientHeight)

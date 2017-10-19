@@ -35,14 +35,15 @@ class Controller {
         // Create quiz image in the web
     Controller.myView.createQuestionImg()
         // Get all the questionAnswer set
-
-    var timer = setInterval(function () {
+	    var timer = setInterval(function () {
       if (questionImg.complete) {
         // Callback(questionImg)
         clearInterval(timer)
       }
     }, 50)
     let questionImg = document.getElementById('questionImg')
+
+    questionImg.onload = function () {
 
     let questions = Controller.myQuiz.quiz.map(questionAnswerSet => questionAnswerSet)
       for (let i = 0; i < questions.length; i++) {
@@ -57,7 +58,7 @@ class Controller {
       Controller.myView.shuffleContents('boxes')
       Controller.myView.shuffleContents('answers')
     }
-
+}
     /**
      * Set up events listeners
      */
