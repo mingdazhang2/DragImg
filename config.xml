@@ -12,7 +12,7 @@ inputtype='drag' (or inputtype='input')
     <passing-score>80</passing-score>
     <!--Paste start -->
     <pair targetx='' targety='' imgName='a1.png' width='43' height='20'>
-        <question labelx='179' labely='17' width='43' height='20' >a1</question>
+        <question labelx='179' labely='18' width='43' height='20' >a1</question>
         <answer>a1</answer>
     </pair>
     <pair targetx='' targety='' imgName='a2.png' width='79' height='46'>
