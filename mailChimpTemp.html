@@ -15,22 +15,36 @@
 <body>
 <script>
 $( document ).ready(function() {
-	$('#embedCode').html('')
+   $('#embedCode').html('')
    $('.listUrlBtn').click(function(){
 	let oldUrl = $('.listUrlText').val();
-	
+	let newTitle = $('#listTitle').val();
+	// do this if begins with https://
 	if (oldUrl.match("^https://")) {
-		// do this if begins with https://
+		if(newTitle.trim()===''){
+			newTitle = 'Subscribe us';	
+		}else{
+			newTitle = $('#listTitle').val()	;
+		}
+		
+		console.log(newTitle)
 		// oldUrl.match("World$") do this if ends in world
 		let newUrl = oldUrl.replace('/post?u=','/post-json?u=')+'&c=?'
-		let embedInitCode =$('#mailchimpForm').html()
-		let embedCode =  embedInitCode.replace('https://sit.us18.list-manage.com/subscribe/post-json?u=ef29c91a0a79faf3f55a230db&amp;id=c3f62167ec&c=?',newUrl) 
+		let embedInitCode =$('#mailchimpForm').html().replace('<h2>Subscribe us</h2>','<h2>'+newTitle+'</h2>')
+		
+		let embedCode =  embedInitCode.replace('https://sit.us18.list-manage.com/subscribe/post-json?u=ef29c91a0a79faf3f55a230db&amp;id=c3f62167ec&c=?',newUrl)
 		//https://sit.us18.list-manage.com/subscribe/post?u=ef29c91a0a79faf3f55a230db&amp;id=c8e02f8a85
 		//https://sit.us18.list-manage.com/subscribe/post-json?u=ef29c91a0a79faf3f55a230db&amp;id=c8e02f8a85&c=?
+		
+		
+		
+		
 		//Generate embed code 
 		$('#embedCode').text(embedCode)
 		//Generate mailchimp preview
 		$('#mailchimpPreview').html(embedCode)
+		
+		$('#mailchimpPreview h2').text(newTitle);
 		}else{
 		alert('The URL seems not right');
 		}
@@ -41,7 +55,9 @@ $( document ).ready(function() {
 	})
 	
 	$('.clnUrlBtn').click(function(){		
-		$('#listUrl').val('')		
+		$('#listUrl').val('')
+		$('#listTitle').val('')
+		
 	})
 	
 	$('.copyBtn').click(function(){
@@ -87,19 +103,22 @@ function copyEmbedCode() {
 		<p>URL example:</p>
 		<p style="color:red"> https://sit.us18.list-manage.com/subscribe/post?u=ef29c91a0a79faf3f55a230db&amp;id=c8e02f8a85</p>
 		<div class="form-group">  
-			<label class="control-label" for="listUrl">List Url:</label> 
-			<input class="form-control listUrlText" id="listUrl" type="textbox" placeholder="The list url here" value=""></input>
-			<button class="btn btn-default listUrlBtn">Submit & Preview</button>
-			<button class="btn btn-default clnUrlBtn">Clean URL</button>
+			<label class="control-label" for="listUrl">List Url:<small style="color:red; font-size:10"><i class="fa fa-asterisk"></i></small></label> 
+			<input class="form-control listUrlText" id="listUrl" type="textbox" placeholder="The list URL here" value=""></input>
+			
+			<label class="control-label" for="listTitle">List Title:</label> 
+			<input class="form-control listTitle" id="listTitle" type="textbox" placeholder="The list TITLE here" value=""></input>
+			<button class="btn btn-primary listUrlBtn">Submit & Preview</button>
+			<button class="btn btn-default clnUrlBtn">Clean</button>
 		</div>
 		
 		<div class="form-group"> 		
 			<label class="control-label" for="embedCode">Embed Code:</label>
 		
-				<!-- <div class="textareaMask"></div> -->
+				<div class="textareaMask"></div>
 				<textarea id="embedCode" rows="5" id="comment">			
 				</textarea>			
-			<button class="btn btn-default copyBtn">Copy</button>
+			<button class="btn btn-primary copyBtn">Copy</button>
 			<button class="btn btn-default clnBtn">Clean</button>
 		</div>
 	</div>
