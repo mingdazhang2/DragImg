@@ -39,6 +39,10 @@ $( document ).ready(function() {
 		$('#mailchimpPreview').html('')
 	})
 	
+	$('.clnUrlBtn').click(function(){		
+		$('#listUrl').val('')		
+	})
+	
 	$('.copyBtn').click(function(){
 		copyEmbedCode();
 	})
@@ -84,6 +88,7 @@ function copyEmbedCode() {
 			<label class="control-label" for="listUrl">List Url:</label> 
 			<input class="form-control listUrlText" id="listUrl" type="textbox" placeholder="The list url here" value=""></input>
 			<button class="btn btn-default listUrlBtn">Submit & Preview</button>
+			<button class="btn btn-default clnUrlBtn">Clean URL</button>
 		</div>
 		
 		<div class="form-group"> 		
