@@ -1,0 +1,185 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+<script>
+$( document ).ready(function() {
+   $('.listUrlBtn').click(function(){
+	let oldUrl = $('.listUrlText').val();
+	
+	if (oldUrl.match("^https://")) {
+		// do this if begins with https://
+		// oldUrl.match("World$") do this if ends in world
+		let newUrl = oldUrl.replace('/post?u=','/post-json?u=')+'&c=?'
+		let embedInitCode =$('#mailchimpForm').html()
+		let embedCode =  embedInitCode.replace('https://sit.us18.list-manage.com/subscribe/post-json?u=ef29c91a0a79faf3f55a230db&amp;id=c3f62167ec&c=?',newUrl) 
+		//https://sit.us18.list-manage.com/subscribe/post?u=ef29c91a0a79faf3f55a230db&amp;id=c8e02f8a85
+		//https://sit.us18.list-manage.com/subscribe/post-json?u=ef29c91a0a79faf3f55a230db&amp;id=c8e02f8a85&c=?
+		//Generate embed code 
+		$('#embedCode').text(embedCode)
+		//Generate mailchimp preview
+		$('#mailchimpPreview').html(embedCode)
+		}else{
+		alert('The URL seems not right');
+		}
+	})
+	$('.clnBtn').click(function(){
+		$('#embedCode').html('')
+		$('#mailchimpPreview').html('')
+	})
+	
+	$('.copyBtn').click(function(){
+		copyEmbedCode();
+	})
+});
+function copyEmbedCode() {
+  /* Get the text field */
+  var copyText = document.getElementById("embedCode");
+
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Copied success " );
+}	
+</script>
+<style>
+	.btn {
+		margin-top:5px;
+	}
+	textarea {
+	
+		height:400px;
+		width:100%;	
+	}
+	.textareaMask{		
+		width:100%;
+		height:400px;
+		z-index:10;
+		position:absolute;
+		background-color:black;
+		opacity: 0.0;
+	}
+</style>
+<div id = "" class="container ">
+	<div id="mailchimpCreater" class="col-sm-5">
+		<h2>Embed Code Generator</h2>
+		<p>URL example:</p>
+		<p style="color:red"> https://sit.us18.list-manage.com/subscribe/post?u=ef29c91a0a79faf3f55a230db&amp;id=c8e02f8a85</p>
+		<div class="form-group">  
+			<label class="control-label" for="listUrl">List Url:</label> 
+			<input class="form-control listUrlText" id="listUrl" type="textbox" placeholder="The list url here" value=""></input>
+			<button class="btn btn-default listUrlBtn">Submit & Preview</button>
+		</div>
+		
+		<div class="form-group"> 		
+			<label class="control-label" for="embedCode">Embed Code:</label>
+		
+				<div class="textareaMask"></div>
+				<textarea id="embedCode" rows="5" id="comment">			
+				</textarea>			
+			<button class="btn btn-default copyBtn">Copy</button>
+			<button class="btn btn-default clnBtn">Clean</button>
+		</div>
+	</div>
+	<div class="col-sm-7" id="mailchimpPreview"></div>
+	<div id="mailchimpForm" class="col-sm-7" style="display:none">
+<!-- Begin MailChimp Signup Form -->
+	<h2>Subscribe us</h2>	
+	<div id="subscribeFormAjax">
+		<div class="form-group">
+			<label class="control-label" for="first_name">First Name <small class="required"><i class="fa fa-asterisk"></i></small></label> 
+			<input class="form-control fNameBox" id="firstname" placeholder="First Name" required="" type="text" value="" />
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="surname">Surname <small class="required"><i class="fa fa-asterisk"></i></small></label> 
+			<input aria-describedby="surnamestatus" class="form-control lNameBox" id="surname" placeholder="Surname" required="" type="text" value="" />
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="email">Email <small class="required"><i class="fa fa-asterisk"></i></small></label> 
+			<input class="form-control emailBox" id="email" placeholder="your@email.com" required="" type="email" value="" />
+		</div>
+		<div class="form-group" style="float:right;">
+			<button class="btn btn-primary" id="subscribeBtn" style="" type="button">Subscribe</button>
+		</div>
+		<div id="subMsg">&nbsp;</div>
+	</div>	
+	<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+		/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+		   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+	  #subscribeBtn{
+		background-color:#ed6d20;
+		border:none;  
+	  }
+	  #subscribeBtn:hover{
+		background-color:#c9621a;
+	  }
+	  #subscribeFormAjax .required{
+		color:red;
+		font-size:50%;
+	  }
+	</style>
+	<script>
+	$('#subscribeBtn').click(function(){
+		//subscribe to mailchimp Ajax request
+		let email = $('.emailBox').val();
+		let fName = $('.fNameBox').val();
+		let lName = $('.lNameBox').val();            					
+		let	url = "https://sit.us18.list-manage.com/subscribe/post-json?u=ef29c91a0a79faf3f55a230db&amp;id=c3f62167ec&c=?"
+		let str ='';
+		let params = {
+			"FNAME": fName,
+			"LNAME": lName,
+			"EMAIL": email
+		};
+		if(email===''||fName===''||lName===''){
+			str = "<p class='text-danger'>"+"Please input your information"+"</p>"
+		}else{
+			$.ajax({
+			url: url,
+			type: 'POST',
+			dataType: 'json',
+			data: params,
+			error: function (res, text) {
+				console.log('Err', res);
+				<!-- document.getElementById("subMsg").innerHTML(res.msg) -->
+				<!-- $('#subMsg').html(email + "is already subscribed.")-->
+				$('#subMsg').html(res.msg)  
+			},
+			success: function (res) {
+				console.log('Success', res);
+				if(res.result ==="error"){							
+					str = "<p class='text-danger'>"+res.msg+"</p>"
+				}else{
+					str = "<p class='text-success'>"+res.msg+"</p>"
+				}							
+				$('#subMsg').html(str)
+			}
+			})						
+		}
+		$('#subMsg').html(str)					 
+	})
+	</script>
+<!--End mc_embed_signup-->
+	</div>	
+</div>
+
+
+</body>	
+	
+</html>
